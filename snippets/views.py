@@ -23,8 +23,8 @@ from snippets.serializers import SnippetSerializer
 # such as HTTP_400_BAD_REQUEST is better than just '400'
 #
 # Wrapping API Views
-# 1. @api_view: for function based views
-# 2. APIView class: for class-based views
+# 1. @api_view: for function based views (FBV)
+# 2. APIView class: for class-based views (CBV)
 
 
 @api_view(['GET', 'POST'])
