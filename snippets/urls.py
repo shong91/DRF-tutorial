@@ -1,5 +1,5 @@
 from django.urls import path
-from snippets import views, views2, views3
+from snippets import views, views2, views3, views4
 from rest_framework.urlpatterns import format_suffix_patterns
 
 # function based view urlpattern
@@ -14,8 +14,12 @@ from rest_framework.urlpatterns import format_suffix_patterns
 # 만일 해당 메소드가 정의되어 있지 않으면 HttpResponseNotAllowed 익셉션을 발생시킵니다.
 
 urlpatterns = [
-    path('snippets/', views3.SnippetList.as_view()),
-    path('snippets/<int:pk>/', views3.SnippetDetail.as_view())
+    path('snippets/', views4.SnippetList.as_view()),
+    path('snippets/<int:pk>/', views4.SnippetDetail.as_view()),
+
+    path('users/', views4.UserList.as_view()),
+    path('user/<int:pk>', views4.UserDetail_as_view()),
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

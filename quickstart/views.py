@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets, permissions
 from quickstart.serializers import UserSerializer, GroupSerializer
@@ -6,6 +5,7 @@ from quickstart.serializers import UserSerializer, GroupSerializer
 # We can easily break these down into individual views if we need to, but using viewsets keeps the view logic nicely organized as well as being very concise.
 # https://butter-shower.tistory.com/51
 # https://www.django-rest-framework.org/tutorial/quickstart/
+
 
 class UserViewSet(viewsets.ModelViewSet):
     """

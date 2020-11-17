@@ -1,11 +1,27 @@
 from rest_framework import serializers
 from snippets.models import Snippet, LANGUAGE_CHOICES, STYLE_CHOICES
+from django.contrib.auth.models import User
+
+
+class UserSerializer(serializers.ModelSerializer):
+    # Because 'snippets' is a reverse relationship on the User model,
+    # it will not be included by default when using the ModelSerializer class, so we needed to add an explicit field for it.
+    snippets = serializers.PrimaryKeyRelatedField(many=True,
+                                                  queryset=Snippet.objects.all())
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'snippets']
 
 
 class SnippetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Snippet
-        fields = ['id', 'title', 'code', 'linenos', 'language', 'style']
+        fields = ['id', 'title', 'code', 'linenos', 'language', 'style', 'owner']
+
+    owner = serializers.ReadOnlyField(source='owner.username')
+    # ReadOnlyField is always read-only, and will be used for serialized representations,
+    # but will not be used for updating model instances when they are deserialized. can use CharField(read_only=True)
 
     # SnippetSerializer():
     #    id = IntegerField(label='ID', read_only=True)
