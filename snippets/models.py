@@ -18,6 +18,7 @@ class Snippet(models.Model):
     style = models.CharField(choices=STYLE_CHOICES, default='friendly', max_length=100)
 
     # authentication and Permession
+    #django.contrib.auth.User와 외래키 관계를 맺는 필드를 만든다. 역참조가 필요한 상황이 발생하므로 related_name을 설정한다.
     owner = models.ForeignKey('auth.User', related_name='snippets', on_delete=models.CASCADE, default='')
     highlighted = models.TextField(default='')
     # it will be used to store the highlighted HTML representation of the code.
@@ -39,4 +40,4 @@ class Snippet(models.Model):
                                   full=True,
                                   **options)
         self.highlighted = highlight(self.code, lexer, formatter)
-        super(Snippet.self).save(*args, **kwargs)
+        super(Snippet, self).save(*args, **kwargs)

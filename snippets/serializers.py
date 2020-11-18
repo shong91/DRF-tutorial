@@ -22,6 +22,7 @@ class SnippetSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     # ReadOnlyField is always read-only, and will be used for serialized representations,
     # but will not be used for updating model instances when they are deserialized. can use CharField(read_only=True)
+    #  ==> Now that code snippets are associated with users
 
     # SnippetSerializer():
     #    id = IntegerField(label='ID', read_only=True)

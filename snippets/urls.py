@@ -18,7 +18,7 @@ urlpatterns = [
     path('snippets/<int:pk>/', views4.SnippetDetail.as_view()),
 
     path('users/', views4.UserList.as_view()),
-    path('user/<int:pk>', views4.UserDetail_as_view()),
+    path('user/<int:pk>', views4.UserDetail.as_view()),
 
 ]
 
