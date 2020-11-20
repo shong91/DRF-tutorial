@@ -1,5 +1,6 @@
 from snippets.models import Snippet
-from snippets.serializers import SnippetSerializer, UserSerializer
+# from snippets.serializers import SnippetSerializer, UserSerializer
+from snippets.serializers_hyperlinked import SnippetSerializer, UserSerializer
 from rest_framework import generics, permissions, renderers
 from django.contrib.auth.models import User
 from snippets.permissions import IsOwnerOrReadOnly
