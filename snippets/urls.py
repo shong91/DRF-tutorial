@@ -1,5 +1,5 @@
 from django.urls import path
-from snippets import views, views2, views3, views4
+from snippets import views, views2, views3, views4, views5
 from rest_framework.urlpatterns import format_suffix_patterns
 
 # function based view urlpattern
@@ -13,12 +13,17 @@ from rest_framework.urlpatterns import format_suffix_patterns
 # dispatch() 메소드는 요청을 검사해서 GET, POST 등의 어떤 HTTP 메소드로 요청되었는지 알아낸 다음, 인스턴스 내에서 해당 이름을 갖는 메소드로 요청을 중계해준다.
 # 만일 해당 메소드가 정의되어 있지 않으면 HttpResponseNotAllowed 익셉션을 발생시킵니다.
 
+# hyperlinked API, we need to make sure we name our URL patterns. (The root of our API refers to 'user-list' and 'snippet-list')
 urlpatterns = [
-    path('snippets/', views4.SnippetList.as_view()),
-    path('snippets/<int:pk>/', views4.SnippetDetail.as_view()),
+    path('', views5.api_root),
 
-    path('users/', views4.UserList.as_view()),
-    path('user/<int:pk>', views4.UserDetail.as_view()),
+    path('snippets/', views5.SnippetList.as_view(), name='snippet-list'),
+    path('snippets/<int:pk>/', views5.SnippetDetail.as_view(), name='snippet-detail'),
+    path('snippets/<int:pk>/highlight/', views5.SnippetHighlight.as_view(), name='snippet-highlight'),
+
+    path('users/', views5.UserList.as_view(), name='user-list'),
+    path('user/<int:pk>', views5.UserDetail.as_view(), name='user-detail'),
+
 
 ]
 

@@ -1,6 +1,6 @@
 from snippets.models import Snippet
 from snippets.serializers import SnippetSerializer, UserSerializer
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, renderers
 from django.contrib.auth.models import User
 from snippets.permissions import IsOwnerOrReadOnly
 from rest_framework.decorators import api_view
@@ -15,6 +15,19 @@ def api_root(request, format=None):
         'users': reverse('user-list', request=request, format=format),
         'snippets': reverse('snippet-list', request=request, format=format)
     })
+
+
+# we don't want to use JSON, but instead just present an HTML representation.
+# There are two styles of HTML renderer provided by REST framework,
+# one for dealing with HTML rendered using templates, the other for dealing with pre-rendered HTML.
+class SnippetHighlight(generics.GenericAPIView):
+    queryset = Snippet.objects.all()
+    renderer_classes = [renderers.StaticHTMLRenderer]
+
+    def get(self, request, *args, **kwargs):
+        snippet = self.get_object()
+        return Response(snippet.highlighted)
+
 
 # read-only views
 class UserList(generics.ListAPIView):
