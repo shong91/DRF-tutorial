@@ -23,8 +23,9 @@ from rest_framework import routers
 
 urlpatterns = [
     # path('', include(router.urls)),
-    path('user/', include('accounts.urls')),
-    # path('api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls),
+    path('users/', include('accounts.urls')),
+    path('boards/', include('boards.urls')),
+    # path('api-auth/', include('rest_framework.urls')),
 
 ]

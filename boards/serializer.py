@@ -1,21 +1,12 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
-from minitest.models import Board
-
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id', 'username', 'board']
-    board = serializers.PrimaryKeyRelatedField(many=True,
-                                               queryset=Board.objects.all())
+from boards.models import Board
 
 
 class BoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Board
-        fields = ['id', 'owner', 'title', 'code', 'language']
-    owner = serializers.ReadOnlyField(source='owner.username')
+        fields = ['id', 'author', 'title', 'body', 'created_at', 'updated_at']
+    author = serializers.ReadOnlyField(source='author.username')
 
     def create(self, validated_data):
         return Board.objects.create(**validated_data)
