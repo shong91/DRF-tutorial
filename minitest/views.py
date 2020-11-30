@@ -7,6 +7,9 @@ from minitest.models import Board
 from minitest.permissions import IsOwnerOrReadOnly
 from rest_framework import permissions, renderers
 
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
 # ViewSet: 일반적인 CBV 가 아니기 때문에 as_view 를 통해서 뷰를 만들지 않고 router를 사용했습니다.
 # as_view 를 사용하지 않는 이유는 ViewSet 은 하나의 뷰가 아닌 set, 여러 개의 뷰를 만들 수 있는 확장된 CBV이기 때문입니다.
 #
@@ -25,6 +28,11 @@ class BoardViewSet(viewsets.ModelViewSet):
     serializer_class = BoardSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,
                           IsOwnerOrReadOnly]
+
+    @action(detail=True, renderer_classes=[renderers.StaticHTMLRenderer])
+    def highlight(self, request, *arg, **kwargs):
+        board = self.get_object()
+        return Response("@action custom")
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
