@@ -34,6 +34,17 @@ class CommentSerializer(serializers.ModelSerializer):
         return serializer.data
 
 
+class BoardOnlySerializer(serializers.ModelSerializer):
+    parent_comments = serializers.SerializerMethodField()
+    class Meta:
+        model = Board
+        fields = ('id', 'parent_comments')
+
+    def get_parent_comments(self, instance):
+        parent_comments = instance.comments.filter(parent=None) # filter: 대댓글이 아닌 원댓글
+        serializer = CommentSerializer(parent_comments, many=True) # model 을 Board 로 설정하여, 게시글에 맞는 원댓글 값을 가져온다.
+        return serializer.data
+
 # Practice for SerializerMethodField: 커스텀 필드 만들기
 # SerializerMethodField 는 조회할 때 사용하는데, (저장, 수정 X)
 # 인자로 method_name 으로 해당 필드값에 대해 정의하는 함수의 이름을 넘겨주며,

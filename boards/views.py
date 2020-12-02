@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from boards.serializer import BoardSerializer, CommentSerializer
+from boards.serializer import BoardSerializer, CommentSerializer, BoardOnlySerializer
 from boards.models import Board, Comment
 
 from boards.permissions import IsOwnerOrReadOnly
@@ -38,3 +38,11 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+
+# CommentViewSet 을 이용할 경우 board 기준이 아니라 comment 기준으로 데이터를 가져오게 됨.
+# => Board 기준으로 comment 를 가져올 수 있도록 read API 를 추가한다.
+class CommentOnlyViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Board.objects.all()
+    serializer_class = BoardOnlySerializer
+    permission_classes = [permissions.AllowAny]
