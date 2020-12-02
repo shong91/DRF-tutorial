@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from boards.serializer import BoardSerializer
-from boards.models import Board
+from boards.serializer import BoardSerializer, CommentSerializer
+from boards.models import Board, Comment
 
 from boards.permissions import IsOwnerOrReadOnly
 from rest_framework import permissions, renderers
@@ -29,3 +29,12 @@ class BoardViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
