@@ -55,6 +55,7 @@ Serializer란 DRF에서 직렬화를 담당하는 클래스로, queryset, model 
 # And More.. 
 1. [[JWT] 토큰 기반 인증에 대한 소개](https://velopert.com/2350)
 2. [[JWT] JSON Web Token 소개 및 구조](https://velopert.com/2389)
+3. [sentry로 에러탐지](https://velog.io/@lemontech119/DRF%EB%A1%9C-api-%EC%84%9C%EB%B2%84-%EA%B0%9C%EB%B0%9C7-%EC%97%90%EB%9F%AC%ED%83%90%EC%A7%80)
 
 <br>
 

@@ -16,3 +16,11 @@ def send_email():
                  to=to,
                  from_email=FROM_EMAIL).send()
     return True
+
+
+# 1. Redis server 가동
+# redis-server /usr/local/etc/redis.conf
+# 2. Django 프로젝트 위치에서 터미널을 하나 더 켜서 celery worker를 작동시킴.
+# celery -A {djangoproject} worker -l info
+# 3. Django 프로젝트 서버 가동
+# python manage.py runserver
