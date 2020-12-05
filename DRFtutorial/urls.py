@@ -22,7 +22,6 @@ from rest_framework import routers
 # router.register(r'groups', views.GroupViewSet)
 
 urlpatterns = [
-    # path('', include(router.urls)),
     path('admin/', admin.site.urls),
     path('users/', include('accounts.urls')),
     path('boards/', include('boards.urls')),
